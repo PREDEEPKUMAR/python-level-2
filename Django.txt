@@ -1,0 +1,128 @@
+Prerequestics to Work on Django Project
+	1. Python
+	2. Environmental Setup (Path --> Scripts / Basic Python Interpretor)
+	3. Virutal Environment ( prefer: pip install virtualenvwrapper-win)
+	4. Django Framework (Installation only on Virtual Environment)
+	5. Database (Choice is ours. We use Sqllite3)
+
+Create Project
+	django-admin startproject <proj_name> --> Creates the Django Project in the Given Directory  (This can also be created by New Project --> Create)
+
+	Project Structure:
+	mysite/
+		manage.py
+		mysite/
+			__init__.py
+			settings.py
+			urls.py
+			wsgi.py	
+		
+	where: 
+		manage.py --> 
+			Never Edit the Value. Program that comes with Django Framework which has many methods that helps to do certain things.
+
+			Eg. Access the DB, Create Users for Website,....
+			python manage.py runserver --> Start the Development Server which comes with Django  (Clicking a button in Pycharm also starts the WebServer)
+		mysite/  --> Root Directory of our Project
+			_init_.py --> View this directory as a Python package
+			settings.py --> Configuration file for your website
+			urls.py --> URL declaration or Table of Contents of the Website, Request & Response. URL Mappings
+			wsgi.py --> Web Server GUI . Special Type which we will learn it about this lot later
+
+Development Server: 	python manage.py runserve		
+
+Create App:
+
+	What is App? -- App is not exactly what it is in nature. App is just a part of my website in Django. Each App does one thing. 
+
+	python manage.py startapp <app_name>  --> Create an App within a project
+
+	Overview of a Basic App
+		1. migrations --> connect Source Code to Database 
+		2. admin.py --> Almost every website has admin section (CRUD operation)
+		3. apps.py --> Configuration file
+		4. models.py --> blueprint for your DB. How you store Data for this App. What tables in this App? Tables and Attributes are defined for this App in this section. 
+		5. tests.py --> Unit Test module can be kept here
+		6. views.py --> Python Functions. Gets the Python request from user and gives out the Response. 95% of times it is going to give out the website. Send backs the Https Response.
+
+Scenario:
+	User Goes to a Website -- <General URL in User End>
+	Request Something -- <Click or Navigation>
+	Go for URL in Main Project File -- <Check for mapping URL and redirect happens>
+	Check for Condition in URL File and hover to next file -- <Check for mapping URL and redirect happens>
+		Go to URL in APP -- <look for addtional expressions>
+		Go to Views -- <Redirect to View where Response is handled>
+	Go to Views -- <Redirect to View where Response is handled>
+	Send Back the Http Response  -- <Rendered Output is sent back to the user>
+	
+	1. Creation of Basic View in Any App
+	2. Configuration of URL to View
+	
+URL File:
+
+	URL Patterns -- Its a list which re-directs different URL to different sites.
+	
+	Functions available:
+	1. include()  : Is Used when you include other URL patterns. 
+	2. path()  : Takes in Four Arguments  (2: required, 2: optional)
+		argument: route --> string that contains a URL patterns
+		argument: view ---> Calls specified view function with HttpRequest
+		argument: kwargs --> Arbitrary keyword passed in dictionary to target view
+		argument: name  ---> Global changes to URL Pattern of your project while only touching a single file.
+		
+		
+SETTINGS File:
+	DATABASES on settings.py File:
+		Database setup needs to be done in setting.py file (Under Main project)
+		Default Django takes SQLITE3 --> it has ENGINE and NAME
+		If we have any other DB, then HOST, PASS will be required. 
+		
+	INSTALLED_APPS on settings.py
+		This Holds the names of all Django applications that are activated in this Django instance.
+		Be Default, 
+			django.contrib.admin – The admin site. You’ll use it shortly.
+			django.contrib.auth – An authentication system.
+			django.contrib.contenttypes – A framework for content types.
+			django.contrib.sessions – A session framework.
+			django.contrib.messages – A messaging framework.
+			django.contrib.staticfiles – A framework for managing static files.
+	when "migrate" command is run, this will look for all the installed apps
+	
+	TIME-ZONE : can be set too
+	LANGUAGE: can be set too
+	
+MODELS File: 
+	Creating Models : 
+		Database layout with additional metadata.
+		All Database Models inherits from models.Model
+		Each Field is represented by an instance of a Field Class.
+	
+	Model Field Reference: 
+		https://docs.djangoproject.com/en/2.1/ref/models/fields/
+		https://djangobook.com/model-definition-reference/
+	
+		Models are available at django.db
+		
+		Field Name Restrictions:
+			1. Shouldn't be Python reserved Keyword
+			2. Should not contain more than one underscore
+			
+		Model Field Reference has two things --> 
+			1. Field Types 
+			2. Field Options
+			
+		Field Types: AutoField, BigAutoField, DateField, DateTimeField, CharField, FloatField, DecimalField, FileField, TimeField, URLField, ImageField, Etc.......
+		
+		Field Options: null, blank, default, max-length, unique, primary_key, choices, etc......
+		
+		Relationship: ForeignKey, ManyToManyField, OneToOneField
+	
+	Activating Models :
+		1. Add the Reference in the Configuration File
+		2. MakeMigrations with the App_Name
+		3. sqlmigrate <app_name> <name>   -- Gives us the list of migration that is going to take place
+		4. Run the Migrate Command to activate the model
+		
+		
+		
+		
